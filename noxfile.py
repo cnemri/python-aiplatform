@@ -54,6 +54,10 @@ DOCFX_DEPENDENCIES = (
 UNIT_TEST_PYTHON_VERSIONS = ["3.8", "3.9", "3.10", "3.11", "3.12"]
 UNIT_TEST_LANGCHAIN_PYTHON_VERSIONS = ["3.9", "3.10", "3.11", "3.12"]
 UNIT_TEST_AG2_PYTHON_VERSIONS = ["3.9", "3.10", "3.11", "3.12"]
+PYTHON_TO_RAY_VERSIONS = {
+    "3.10": ["2.9.3", "2.33.0", "2.42.0"],
+    "3.11": ["2.42.0"],
+}
 UNIT_TEST_STANDARD_DEPENDENCIES = [
     "mock",
     "asyncmock",
@@ -252,9 +256,11 @@ def unit_genai_minimal_dependencies(session):
     )
 
 
-@nox.session(python="3.10")
-@nox.parametrize("ray", ["2.9.3", "2.33.0"])
-def unit_ray(session, ray):
+def run_ray_unit_test(session, ray):
+    # check if ray version is supported
+    if ray not in PYTHON_TO_RAY_VERSIONS[session.python]:
+        session.skip(f"Ray version {ray} is not supported for python {session.python}")
+
     # Install all test dependencies, then install this package in-place.
 
     constraints_path = str(CURRENT_DIRECTORY / "testing" / f"constraints-ray-{ray}.txt")
@@ -268,7 +274,7 @@ def unit_ray(session, ray):
     session.run(
         "py.test",
         "--quiet",
-        f"--junitxml=unit_ray_{ray}_sponge_log.xml",
+        f"--junitxml=unit_ray_{ray}_py_{session.python}_sponge_log.xml",
         "--cov=google",
         "--cov-append",
         "--cov-config=.coveragerc",
@@ -278,6 +284,11 @@ def unit_ray(session, ray):
         *session.posargs,
     )
 
+
+@nox.session(python=["3.10", "3.11"])
+@nox.parametrize("ray", ["2.9.3", "2.33.0", "2.42.0"])
+def unit_ray(session, ray):
+    run_ray_unit_test(session, ray)
 
 @nox.session(python=UNIT_TEST_LANGCHAIN_PYTHON_VERSIONS)
 def unit_langchain(session):
