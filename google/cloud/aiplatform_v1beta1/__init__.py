@@ -232,6 +232,8 @@ from .types.endpoint_service import UpdateEndpointOperationMetadata
 from .types.endpoint_service import UpdateEndpointRequest
 from .types.entity_type import EntityType
 from .types.env_var import EnvVar
+from .types.env_var import SecretEnvVar
+from .types.env_var import SecretRef
 from .types.evaluated_annotation import ErrorAnalysisAnnotation
 from .types.evaluated_annotation import EvaluatedAnnotation
 from .types.evaluated_annotation import EvaluatedAnnotationExplanation
@@ -2069,6 +2071,8 @@ __all__ = (
     "SearchModelMonitoringStatsResponse",
     "SearchNearestEntitiesRequest",
     "SearchNearestEntitiesResponse",
+    "SecretEnvVar",
+    "SecretRef",
     "Segment",
     "ServiceAccountSpec",
     "SharePointSources",
