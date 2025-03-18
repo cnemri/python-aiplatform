@@ -183,6 +183,8 @@ from .entity_type import (
 )
 from .env_var import (
     EnvVar,
+    SecretEnvVar,
+    SecretRef,
 )
 from .evaluated_annotation import (
     ErrorAnalysisAnnotation,
@@ -1285,6 +1287,8 @@ __all__ = (
     "UpdateEndpointRequest",
     "EntityType",
     "EnvVar",
+    "SecretEnvVar",
+    "SecretRef",
     "ErrorAnalysisAnnotation",
     "EvaluatedAnnotation",
     "EvaluatedAnnotationExplanation",
