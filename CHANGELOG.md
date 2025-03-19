@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.85.1](https://github.com/googleapis/python-aiplatform/compare/v1.85.0...v1.85.1) (2025-03-19)
+
+
+### Bug Fixes
+
+* Format of the input to GetPublisherModelRequest for Hugging Face models. ([96d2ecb](https://github.com/googleapis/python-aiplatform/commit/96d2ecbb527cc52c71bbeddc2394eaf9c4f91e06))
+* GenAI Evaluation: Fix system instruction not being added to PairwiseMetric. ([c65879d](https://github.com/googleapis/python-aiplatform/commit/c65879d7874fda62718f6b542d7828ef5fa37367))
+
 ## [1.85.0](https://github.com/googleapis/python-aiplatform/compare/v1.84.0...v1.85.0) (2025-03-18)
 
 
